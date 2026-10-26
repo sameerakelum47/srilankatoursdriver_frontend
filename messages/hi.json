@@ -209,7 +209,8 @@
     "location": "स्थान",
     "book": "यह भ्रमण बुक करें",
     "included": "शामिल",
-    "related": "और भ्रमण"
+    "related": "और भ्रमण",
+    "getDirections": "दिशा-निर्देश पाएं"
   },
   "vehicle": {
     "features": "सुविधाएँ",
@@ -464,6 +465,10 @@
     "showLess": "कम दिखाएँ",
     "title": "टूर पैकेज दरें",
     "subtitle": "हवाई अड्डे (CMB) से निश्चित दरें",
+    "excursionTitle": "ट्रांसफर दरें",
+    "excursionSubtitle": "पिक-अप और ड्रॉप-ऑफ के लिए निश्चित कीमतें",
+    "startingPoint": "प्रारंभिक स्थान",
+    "transfersFrom": "यहाँ से ट्रांसफर:",
     "headers": {
       "destination": "गंतव्य",
       "car": "कार (USD)",

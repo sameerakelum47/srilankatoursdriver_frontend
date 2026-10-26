@@ -209,7 +209,8 @@
     "location": "地点",
     "book": "预订此活动",
     "included": "包含",
-    "related": "更多活动"
+    "related": "更多活动",
+    "getDirections": "获取路线"
   },
   "vehicle": {
     "features": "配置",
@@ -464,6 +465,10 @@
     "showLess": "收起",
     "title": "旅游套餐资费表",
     "subtitle": "自机场 (CMB) 出发的固定费率",
+    "excursionTitle": "接送价格",
+    "excursionSubtitle": "接送固定价格",
+    "startingPoint": "出发地",
+    "transfersFrom": "出发地：",
     "headers": {
       "destination": "目的地",
       "car": "轿车 (USD)",

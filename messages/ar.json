@@ -209,7 +209,8 @@
     "location": "الموقع",
     "book": "احجز هذه الرحلة",
     "included": "يشمل",
-    "related": "رحلات أخرى"
+    "related": "رحلات أخرى",
+    "getDirections": "احصل على الاتجاهات"
   },
   "vehicle": {
     "features": "المزايا",
@@ -464,6 +465,10 @@
     "showLess": "عرض أقل",
     "title": "أسعار باقات الجولات",
     "subtitle": "أسعار ثابتة من مطار كولومبو (CMB)",
+    "excursionTitle": "أسعار التنقل",
+    "excursionSubtitle": "أسعار ثابتة للتوصيل والاستقبال",
+    "startingPoint": "نقطة الانطلاق",
+    "transfersFrom": "التنقل من",
     "headers": {
       "destination": "الوجهة",
       "car": "سيارة (USD)",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Clock, MapPin, Tag } from "lucide-react";
+import { Clock, MapPin, Navigation, Tag } from "lucide-react";
 import { getDetail, getPage, getSiteSettings } from "@/lib/api/server";
 import { buildMetadata } from "@/lib/seo";
 import { formatPrice, whatsappLink } from "@/lib/utils";
@@ -11,8 +11,11 @@ import { Markdown } from "@/components/ui/Markdown";
 import { SocialIcons } from "@/components/ui/icons";
 import { ExcursionCard } from "@/components/cards/ExcursionCard";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { ExcursionRates } from "@/components/site/ExcursionRates";
+import { DestinationMap } from "@/components/site/DestinationMap";
 import { CheckList, DetailSection, FactList, MediaStrip } from "@/components/site/DetailBits";
 import { travelImageFor } from "@/lib/editorial-images";
+import { destinationMarker } from "@/lib/destination-map";
 import { reveal3d } from "@/lib/reveal";
 import type { Excursion } from "@/types/cms";
 
@@ -54,7 +57,7 @@ export default async function ExcursionDetailPage({ params }: Props) {
   // Tells next-intl which language this page is rendered in
   setRequestLocale(locale);
 
-  const [data, listingPage, settings, t, tCommon, tTour] = await Promise.all([
+  const [data, listingPage, settings, t, tCommon, tTour, tDestination] = await Promise.all([
     getDetail("excursions", slug, locale),
     // The /excursions CMS page, only for its title in the breadcrumbs
     getPage("excursions", locale),
@@ -62,6 +65,7 @@ export default async function ExcursionDetailPage({ params }: Props) {
     getTranslations("excursion"),
     getTranslations("common"),
     getTranslations("tour"),
+    getTranslations("destination"),
   ]);
   // Unknown or unpublished slug: notFound() shows the site's 404 page with a real 404 status
   if (!data) notFound();
@@ -70,6 +74,12 @@ export default async function ExcursionDetailPage({ params }: Props) {
   const heroImage = heroImageFor(excursion);
   const price = formatPrice(excursion.price, excursion.currency, locale);
   const whatsappMessage = `${settings?.whatsappMessage ?? ""} ${excursion.title}`.trim();
+  // Our own Sri Lanka map with a pin (Admin → Excursions → Map location); hidden when there is no pin
+  const placeName = excursion.location || excursion.title;
+  const hasPin = !!destinationMarker(excursion.coordinates);
+  // "Get directions" opens Google Maps, routing from wherever the visitor is
+  const directionsTarget = hasPin ? `${excursion.coordinates?.lat},${excursion.coordinates?.lng}` : `${placeName}, Sri Lanka`;
+  const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(directionsTarget)}`;
 
   return (
     <>
@@ -148,8 +158,34 @@ export default async function ExcursionDetailPage({ params }: Props) {
               )}
             </div>
           </div>
+
+          {/* MAP: where the excursion is on the whole island (no card – the sea fades into the page), with a directions link */}
+          <div className="mt-8" data-testid="excursion-map">
+            {hasPin && (
+              <div className="[&_svg]:max-w-60">
+                <DestinationMap
+                  destination={{ name: placeName, location: excursion.coordinates }}
+                  label={tDestination("mapLabel", { name: placeName })}
+                  unavailable={tDestination("locationUnavailable")}
+                  caption={tDestination("mapCaption")}
+                  fade
+                />
+              </div>
+            )}
+            <div className="flex items-center justify-between gap-3 border-t border-sand-200 pt-5">
+              <span className="flex items-center gap-1 text-sm text-muted">
+                <MapPin className="h-4 w-4 text-gold-600" aria-hidden /> {placeName}
+              </span>
+              <a href={directionsLink} target="_blank" rel="noopener noreferrer" className={buttonClass("outline", "sm", "shrink-0")}>
+                <Navigation className="h-4 w-4" aria-hidden /> {t("getDirections")}
+              </a>
+            </div>
+          </div>
         </aside>
       </div>
+
+      {/* RATES FROM THIS PLACE (Admin → Rates) */}
+      <ExcursionRates settings={settings} excursion={excursion} />
 
       {/* RELATED EXCURSIONS */}
       {data.related.length > 0 && (

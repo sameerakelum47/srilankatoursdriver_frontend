@@ -169,6 +169,8 @@ export interface ListParams {
   featured?: boolean;
   destination?: string;
   search?: string;
+  /** Tours only: 1, 5, 8, 10, 12, 14 or "other". */
+  days?: string;
 }
 
 export async function getList<K extends ListKey>(key: K, params: ListParams): Promise<{ items: ListTypes[K][]; meta: PaginationMeta } | null> {

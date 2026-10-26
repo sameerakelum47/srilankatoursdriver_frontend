@@ -209,7 +209,8 @@
     "location": "場所",
     "book": "このアクティビティを予約",
     "included": "含まれるもの",
-    "related": "その他のアクティビティ"
+    "related": "その他のアクティビティ",
+    "getDirections": "経路を表示"
   },
   "vehicle": {
     "features": "装備",
@@ -464,6 +465,10 @@
     "showLess": "折りたたむ",
     "title": "ツアーパッケージ料金表",
     "subtitle": "空港（CMB）発 固定料金",
+    "excursionTitle": "送迎料金",
+    "excursionSubtitle": "送迎の固定料金",
+    "startingPoint": "出発地",
+    "transfersFrom": "出発地：",
     "headers": {
       "destination": "目的地",
       "car": "普通車 (USD)",

@@ -209,7 +209,8 @@
     "location": "Ort",
     "book": "Diesen Ausflug buchen",
     "included": "Inklusive",
-    "related": "Weitere Ausflüge"
+    "related": "Weitere Ausflüge",
+    "getDirections": "Route planen"
   },
   "vehicle": {
     "features": "Ausstattung",
@@ -464,6 +465,10 @@
     "showLess": "Weniger anzeigen",
     "title": "Preise für Tour-Pakete",
     "subtitle": "Festpreise ab Flughafen (CMB)",
+    "excursionTitle": "Transferpreise",
+    "excursionSubtitle": "Festpreise für Abholung und Absetzen",
+    "startingPoint": "Startpunkt",
+    "transfersFrom": "Transfers ab",
     "headers": {
       "destination": "Zielort",
       "car": "Auto (USD)",

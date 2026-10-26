@@ -45,6 +45,12 @@ export interface TransferRate {
   distanceKm?: number | null;
 }
 
+/** One "Transfers from <origin>" price table (excursions page). */
+export interface ExcursionRateTable {
+  origin: string;
+  rows?: TransferRate[];
+}
+
 export interface SiteSettings {
   siteName: string;
   businessName: string;
@@ -83,6 +89,15 @@ export interface SiteSettings {
     note?: string;
     rows?: TransferRate[];
   };
+  /** Transfer price tables per starting point, shown on the excursions page. */
+  excursionRates?: {
+    enabled?: boolean;
+    title?: string;
+    subtitle?: string;
+    currency?: string;
+    note?: string;
+    tables?: ExcursionRateTable[];
+  };
   /** Accreditation / partner logos for the trust bar. */
   partners?: { name: string; url?: string; logo?: MediaAsset | null }[];
   maintenanceMode?: boolean;
@@ -95,6 +110,10 @@ export interface Branding {
   darkLogo?: MediaAsset | null;
   mobileLogo?: MediaAsset | null;
   favicon?: MediaAsset | null;
+  /** Icon + text logo (Admin → Branding). When the icon or line 1 is set it replaces the logo images. */
+  logoIcon?: MediaAsset | null;
+  logoTextLine1?: string;
+  logoTextLine2?: string;
   logoAlt?: string;
   logoWidth?: number;
   logoHeight?: number;
@@ -244,6 +263,8 @@ export interface Excursion {
   category?: Category | null;
   destination?: Pick<Destination, "_id" | "name" | "slug"> | null;
   location?: string;
+  /** Pin on the Sri Lanka map of the excursion page */
+  coordinates?: { lat?: number | null; lng?: number | null };
   duration?: string;
   price?: number | null;
   currency?: string;
@@ -334,6 +355,8 @@ export interface Review {
   sourceUrl?: string;
   verified?: boolean;
   featured?: boolean;
+  /** Pulled live from the TripAdvisor Content API (not stored in the CMS). */
+  live?: boolean;
   tour?: { title: string; slug: string } | null;
 }
 
@@ -367,6 +390,7 @@ export interface TripAdvisorSummary {
   numReviews?: number;
   ratingImageUrl?: string;
   webUrl?: string;
+  writeReviewUrl?: string;
   reviews: { id: string; title: string; text: string; rating: number; publishedDate: string; url: string; user: { username: string; country?: string } }[];
 }
 
@@ -408,7 +432,8 @@ export interface PageSection {
   items?: { title?: string; role?: string; description?: string; icon?: string; image?: MediaAsset | null; url?: string }[];
   buttons?: LinkButton[];
   media?: MediaAsset | null;
-  settings?: { limit?: number; source?: "featured" | "latest" | "all"; theme?: "light" | "sand" | "forest" | "dark"; layout?: string; category?: string | null };
+  /** source "season" (tour sections): the seasonal category in season now – Down South Nov–Jun, East Coast Jul–Oct. */
+  settings?: { limit?: number; source?: "featured" | "latest" | "all" | "season"; theme?: "light" | "sand" | "forest" | "dark"; layout?: string; category?: string | null };
   enabled?: boolean;
   order?: number;
   data?: unknown;

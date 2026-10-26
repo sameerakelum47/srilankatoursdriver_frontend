@@ -209,7 +209,8 @@
     "location": "Место",
     "book": "Забронировать экскурсию",
     "included": "Включено",
-    "related": "Другие экскурсии"
+    "related": "Другие экскурсии",
+    "getDirections": "Проложить маршрут"
   },
   "vehicle": {
     "features": "Оснащение",
@@ -464,6 +465,10 @@
     "showLess": "Показать меньше",
     "title": "Тарифы на туры",
     "subtitle": "Фиксированные цены из аэропорта (CMB)",
+    "excursionTitle": "Стоимость трансферов",
+    "excursionSubtitle": "Фиксированные цены на трансфер",
+    "startingPoint": "Место отправления",
+    "transfersFrom": "Трансферы из",
     "headers": {
       "destination": "Направление",
       "car": "Легковая (USD)",
